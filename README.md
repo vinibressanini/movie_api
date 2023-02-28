@@ -1,16 +1,19 @@
-# all_in_one
+## All in One Movie App
 
-A new Flutter project.
+App criado com o intuíto de treinar conceitos como Clean Code e Clean Architecture, além de algumas ferramentas e packages do Flutter como Riverpod, DIO, Shimmer, INTL.
+O App consome a API do TMDB (https://www.themoviedb.org/?language=pt-BR) e retorna as tendências diárias e semanais contendo: Nome, imagem do poster, avaliação e data de lançamento. A ideia do desing dos cards é ser o mais parecido possível com o original proposto pelo site.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Preview
 
-A few resources to get you started if this is your first Flutter project:
+https://user-images.githubusercontent.com/91560062/221953966-166482f3-4486-49eb-9c64-6f564d461bda.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tecnologias Utilizadas
+
+- Flutter 3.3.4
+- Dart 2.18.2
+- Dio (https://pub.dev/packages/dio)
+- Hooks Riverpod (https://pub.dev/packages/hooks_riverpod)
+- INTL (https://pub.dev/packages/intl)
+- Shimmer (https://pub.dev/packages/shimmer)
