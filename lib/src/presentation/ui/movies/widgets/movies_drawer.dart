@@ -23,15 +23,19 @@ class MoviesDrawer extends HookConsumerWidget {
           ListTile(
             title: const Text('Trazer filmes semanais'),
             onTap: () {
-              ref.read(moviesNotifierProvider.notifier).getAllTrendingMovies('day');
+              ref
+                  .read(moviesNotifierProvider.notifier)
+                  .getAllTrendingMovies('day');
               Navigator.of(context).pop();
             },
           ),
           ListTile(
             title: const Text('Trazer filmes diários'),
             onTap: () {
-              ref.read(moviesNotifierProvider.notifier).getAllTrendingMovies('week');
-              Navigator.of(context).pop(); 
+              ref
+                  .read(moviesNotifierProvider.notifier)
+                  .getAllTrendingMovies('week');
+              Navigator.of(context).pop();
             },
           ),
         ],

@@ -1,5 +1,3 @@
-
-
 class MovieEntity {
   final bool adult;
   final String backdropPath;
@@ -16,6 +14,7 @@ class MovieEntity {
   final bool video;
   final double voteAverage;
   final int voteCount;
+
   MovieEntity({
     required this.adult,
     required this.backdropPath,
@@ -33,5 +32,4 @@ class MovieEntity {
     required this.voteAverage,
     required this.voteCount,
   });
- 
 }
