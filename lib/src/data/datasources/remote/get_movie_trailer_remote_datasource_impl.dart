@@ -4,7 +4,7 @@ import '../get_movie_trailer_datasource.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entitites/movie_video_entity.dart';
+import '../../../domain/entitites/movie_trailer_entity.dart';
 
 class GetMovieTrailerRemoteDatasourceImpl implements GetMovieTrailerDatasource {
   final Dio _dio;
@@ -12,8 +12,8 @@ class GetMovieTrailerRemoteDatasourceImpl implements GetMovieTrailerDatasource {
   GetMovieTrailerRemoteDatasourceImpl(this._dio);
 
   @override
-  Future<List<MovieVideoEntity>> getMovieTrailer(int movieId) async {
-    List<MovieVideoEntity> videos = [];
+  Future<MovieTrailerEntity> getMovieTrailer(int movieId) async {
+    late MovieTrailerEntity videos; 
 
     try {
       final response = await _dio.get(
@@ -23,8 +23,7 @@ class GetMovieTrailerRemoteDatasourceImpl implements GetMovieTrailerDatasource {
             'language': 'pt-BR'
           });
 
-      videos = List.from(
-          response.data['results'].map((movie) => MovieTrailerDto.fromMap(movie)));
+      videos = MovieTrailerDto.fromMap(response.data);
     } catch (e) {
       debugPrint(e.toString());
     }

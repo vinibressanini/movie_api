@@ -1,5 +1,5 @@
-import '../../domain/entitites/movie_video_entity.dart';
+import '../../domain/entitites/movie_trailer_entity.dart';
 
 abstract class GetMovieTrailerDatasource {
-  Future<List<MovieVideoEntity>> getMovieTrailer(int movieId);
+  Future<MovieTrailerEntity> getMovieTrailer(int movieId);
 }

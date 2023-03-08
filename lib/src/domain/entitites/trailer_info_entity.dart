@@ -1,5 +1,4 @@
-class MovieVideoEntity {
-  final String id;
+class TrailerInfoEntity {
   final String iso6391;
   final String iso31661;
   final String name;
@@ -9,8 +8,7 @@ class MovieVideoEntity {
   final String type;
   final bool official;
 
-  MovieVideoEntity({
-    required this.id,
+  TrailerInfoEntity({
     required this.iso6391,
     required this.iso31661,
     required this.name,

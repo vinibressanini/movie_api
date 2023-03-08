@@ -1,5 +1,5 @@
 import 'package:all_in_one/src/data/datasources/remote/get_movie_trailer_remote_datasource_impl.dart';
-import 'package:all_in_one/src/domain/entitites/movie_video_entity.dart';
+import 'package:all_in_one/src/domain/entitites/movie_trailer_entity.dart';
 import 'package:all_in_one/src/domain/repositories/get_movie_trailer_repository_impl.dart';
 import 'package:all_in_one/src/domain/usecases/get_movie_trailer/get_movie_trailer_usecase_impl.dart';
 import 'package:all_in_one/src/presentation/riverpod/movies/movies_provider.dart';
@@ -21,5 +21,5 @@ final trailerUsecaseProvider = Provider<GetMovieTrailerUsecaseImpl>((ref) {
 });
 
 final trailerNotifierProvider =
-    StateNotifierProvider<TrailerNotifier, List<MovieVideoEntity>>(
+    StateNotifierProvider<TrailerNotifier, MovieTrailerEntity>(
         (ref) => TrailerNotifier(ref.watch(trailerUsecaseProvider)));

@@ -1,28 +1,39 @@
-import 'package:all_in_one/src/domain/entitites/movie_video_entity.dart';
 import 'package:all_in_one/src/presentation/riverpod/trailers/trailer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../domain/entitites/movie_entity.dart';
+import '../../../domain/entitites/movie_trailer_entity.dart';
 
-class MovieDetailsPage extends HookConsumerWidget {
+class MovieDetailsPage extends StatefulHookConsumerWidget {
   final MovieEntity movie;
 
   const MovieDetailsPage({Key? key, required this.movie}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(trailerNotifierProvider.notifier).getMovieTrailer(movie.id);
+  ConsumerState<MovieDetailsPage> createState() => _MovieDetailsPageState();
+}
 
-    final List<MovieVideoEntity> trailers = ref.read(trailerNotifierProvider);
+class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
+  late final YoutubePlayerController controller;
+  bool isReady = false;
 
-    final YoutubePlayerController controller =
-        YoutubePlayerController(initialVideoId: trailers[1].key);
+  @override
+  void initState() {
+    super.initState();
+    ref.read(trailerNotifierProvider.notifier).getMovieTrailer(widget.movie.id);
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    var movie = Future.delayed(
+      const Duration(seconds: 2),
+      () => ref.watch(trailerNotifierProvider),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: const Text("aaaqa"),
+        title: Text(widget.movie.title),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -32,13 +43,13 @@ class MovieDetailsPage extends HookConsumerWidget {
             fit: BoxFit.cover,
             opacity: 0.5,
             image: NetworkImage(
-                'https://image.tmdb.org/t/p/original/${movie.backdropPath}'),
+                'https://image.tmdb.org/t/p/original/${widget.movie.backdropPath}'),
           ),
         ),
         child: Column(
           children: [
             Text(
-              movie.originalTitle,
+              widget.movie.originalTitle,
               style: const TextStyle(
                 fontSize: 35,
                 color: Colors.black,
@@ -47,16 +58,22 @@ class MovieDetailsPage extends HookConsumerWidget {
               ),
             ),
             const SizedBox(height: 30),
-            Text(
-              trailers[1].name,
-              style: const TextStyle(fontSize: 22),
-            ),
-            YoutubePlayer(
-              width: MediaQuery.of(context).size.width * 0.8,
-              controller: controller,
-              controlsTimeOut: const Duration(seconds: 2),
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.red,
+            FutureBuilder(
+              future: movie,
+              builder: (context, AsyncSnapshot<MovieTrailerEntity> snapshot) {
+                if (snapshot.data != null) {
+                  controller = YoutubePlayerController(
+                      initialVideoId: snapshot.data!.trailers.first.key);
+
+                  return YoutubePlayer(
+                    controller: controller,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
           ],
         ),

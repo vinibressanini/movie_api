@@ -37,27 +37,6 @@ class MovieDto extends MovieEntity {
           voteCount: voteCount,
         );
 
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'adult': adult});
-    result.addAll({'backdrop_path': backdropPath});
-    result.addAll({'id': id});
-    result.addAll({'title': title});
-    result.addAll({'original_language': originalLanguage});
-    result.addAll({'original_title': originalTitle});
-    result.addAll({'overview': overview});
-    result.addAll({'poster_path': posterPath});
-    result.addAll({'media_type': mediaType});
-    result.addAll({'genre_ids': genreIds});
-    result.addAll({'popularity': popularity});
-    result.addAll({'release_date': releaseDate});
-    result.addAll({'video': video});
-    result.addAll({'vote_average': voteAverage});
-    result.addAll({'vote_count': voteCount});
-
-    return result;
-  }
 
   factory MovieDto.fromMap(Map<String, dynamic> map) {
     return MovieDto(
@@ -79,8 +58,4 @@ class MovieDto extends MovieEntity {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory MovieDto.fromJson(String source) =>
-      MovieDto.fromMap(json.decode(source));
 }
