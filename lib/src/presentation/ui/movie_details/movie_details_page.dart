@@ -17,7 +17,6 @@ class MovieDetailsPage extends StatefulHookConsumerWidget {
 
 class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
   late final YoutubePlayerController controller;
-  bool isReady = false;
 
   @override
   void initState() {
@@ -28,7 +27,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     var movie = Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => ref.watch(trailerNotifierProvider),
     );
     return Scaffold(
@@ -48,30 +47,43 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
         ),
         child: Column(
           children: [
-            Text(
-              widget.movie.originalTitle,
-              style: const TextStyle(
-                fontSize: 35,
-                color: Colors.black,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
             const SizedBox(height: 30),
             FutureBuilder(
               future: movie,
               builder: (context, AsyncSnapshot<MovieTrailerEntity> snapshot) {
                 if (snapshot.data != null) {
+                  if (snapshot.data!.trailers.isEmpty) {
+                    return const Text(
+                      "Ops! Parece que este filme não possui nenhum trailer no momento!",
+                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    );
+                  }
                   controller = YoutubePlayerController(
                       initialVideoId: snapshot.data!.trailers.first.key);
 
-                  return YoutubePlayer(
-                    controller: controller,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                  return Column(
+                    children: [
+                      Text(
+                        snapshot.data!.trailers.first.name,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      YoutubePlayer(
+                        controller: controller,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                      ),
+                    ],
                   );
                 }
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.blue.shade400,
+                  ),
                 );
               },
             ),

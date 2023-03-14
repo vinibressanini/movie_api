@@ -13,6 +13,7 @@ class MoviesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('All In One'),
         centerTitle: true,
+        
       ),
       body: const MoviesPageBody(),
     );
