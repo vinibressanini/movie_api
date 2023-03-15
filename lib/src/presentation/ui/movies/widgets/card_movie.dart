@@ -63,27 +63,7 @@ class CardMovie extends StatelessWidget {
               child: CircleAvatar(
                 radius: 23,
                 backgroundColor: Colors.black.withOpacity(0.8),
-                child: Stack(
-                  children: [
-                    TweenAnimationBuilder(
-                      curve: Curves.fastOutSlowIn,
-                      tween:
-                          Tween<double>(begin: 0, end: movie.voteAverage / 10),
-                      duration: const Duration(seconds: 2),
-                      builder: (context, double valueA, child) {
-                        return CircularProgressIndicator(
-                            backgroundColor: Colors.black.withOpacity(0.8),
-                            color: Colors.greenAccent,
-                            value: valueA);
-                      },
-                    ),
-                    Positioned(
-                      top: 10,
-                      left: 8,
-                      child: UserVoteAverageAnimation(movie: movie),
-                    ),
-                  ],
-                ),
+                child: UserVoteAverageAnimation(voteAverage: movie.voteAverage),
               ),
             ),
           ),

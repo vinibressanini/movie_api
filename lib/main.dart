@@ -17,13 +17,12 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        
       ],
       supportedLocales: [
-        Locale('pt','BR'),
+        Locale('pt', 'BR'),
       ],
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Flutter Movie App',
       home: SplashScreen(),
     );
   }
