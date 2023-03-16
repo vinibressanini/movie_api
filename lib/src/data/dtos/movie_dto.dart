@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../domain/entitites/movie_entity.dart';
 
 class MovieDto extends MovieEntity {
@@ -37,7 +35,6 @@ class MovieDto extends MovieEntity {
           voteCount: voteCount,
         );
 
-
   factory MovieDto.fromMap(Map<String, dynamic> map) {
     return MovieDto(
       adult: map['adult'] ?? false,
@@ -57,5 +54,4 @@ class MovieDto extends MovieEntity {
       voteCount: map['vote_count']?.toInt() ?? 0,
     );
   }
-
 }

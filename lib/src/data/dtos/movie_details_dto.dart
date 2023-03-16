@@ -1,8 +1,5 @@
-import 'package:all_in_one/src/domain/entitites/genres_entity.dart';
-
 import '../../../shared/utils/date_format..dart';
 import '../../domain/entitites/movie_details_entity.dart';
-import 'genres_dto.dart';
 
 class MovieDetailsDto extends MovieDetailsEntity {
   MovieDetailsDto({
@@ -10,7 +7,7 @@ class MovieDetailsDto extends MovieDetailsEntity {
     required int revenue,
     required String releaseDate,
     required String tagline,
-    required List<GenresEntity> genres,
+    required List<String> genres,
     required int runtime,
   }) : super(
           budget: budget,
@@ -27,8 +24,7 @@ class MovieDetailsDto extends MovieDetailsEntity {
       revenue: map['revenue']?.toInt() ?? 0,
       releaseDate: formatDate(map['release_date']),
       tagline: map['tagline'] ?? '',
-      genres: List<GenresEntity>.from(
-          map['genres']?.map((x) => GenresDto.fromMap(x))),
+      genres: List<String>.from(map['genres']?.map((x) => x['name'])),
       runtime: map['runtime']?.toInt() ?? 0,
     );
   }
