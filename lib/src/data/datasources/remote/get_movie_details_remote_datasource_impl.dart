@@ -3,6 +3,7 @@ import 'package:all_in_one/src/domain/entitites/movie_details_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../env/env.dart';
 import '../../dtos/movie_details_dto.dart';
 
 class GetMovieDetailsRemoteDatasourceImpl implements GetMovieDetailsDatasource {
@@ -17,7 +18,7 @@ class GetMovieDetailsRemoteDatasourceImpl implements GetMovieDetailsDatasource {
       var response = await _dio.get(
         "https://api.themoviedb.org/3/movie/$movieId",
         queryParameters: {
-          "api_key": "b10fbc8ab6f0664504a360887c8e34b8",
+          "api_key": Env.tmdbApiKey,
           "language": "pt_BR",
         },
       );

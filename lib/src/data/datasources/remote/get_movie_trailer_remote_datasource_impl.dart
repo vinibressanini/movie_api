@@ -1,5 +1,6 @@
 import 'package:all_in_one/src/data/dtos/movie_trailer_dto.dart';
 
+import '../../../../env/env.dart';
 import '../get_movie_trailer_datasource.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +14,12 @@ class GetMovieTrailerRemoteDatasourceImpl implements GetMovieTrailerDatasource {
 
   @override
   Future<MovieTrailerEntity> getMovieTrailer(int movieId) async {
-    late MovieTrailerEntity videos; 
+    late MovieTrailerEntity videos;
 
     try {
       final response = await _dio.get(
           'https://api.themoviedb.org/3/movie/$movieId/videos',
-          queryParameters: {
-            'api_key': 'b10fbc8ab6f0664504a360887c8e34b8',
-            'language': 'pt-BR'
-          });
+          queryParameters: {'api_key': Env.tmdbApiKey, 'language': 'pt-BR'});
 
       videos = MovieTrailerDto.fromMap(response.data);
     } catch (e) {
