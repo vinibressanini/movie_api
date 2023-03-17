@@ -6,4 +6,6 @@ part 'env.g.dart';
 abstract class Env {
   @EnviedField(varName: 'TMDB_KEY', obfuscate: true)
   static final tmdbApiKey = _Env.tmdbApiKey;
+  @EnviedField(varName: 'API_BASE_URL')
+  static const tmdbBaseUrl = _Env.tmdbBaseUrl;
 }

@@ -12,5 +12,4 @@ class TrailerNotifier extends StateNotifier<MovieTrailerEntity> {
   Future<void> getMovieTrailer(int movieId) async {
     state = await _usecase.getMovieTrailer(movieId);
   }
-
 }

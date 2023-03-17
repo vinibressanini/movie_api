@@ -21,4 +21,28 @@ class MovieDetailsNotifier extends StateNotifier<MovieDetailsEntity> {
   Future<void> getMovieDetails(int movieId) async {
     state = await _usecase.getMovieDetails(movieId);
   }
+
+  bool calculateProfit() {
+    int result = state.revenue - state.budget;
+
+    if (result > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  String retriveMoviesGenres() {
+    StringBuffer genresString = StringBuffer();
+
+    for (String genre in state.genres) {
+      if (genre == state.genres.last) {
+        genresString.write(genre);
+      } else {
+        genresString.write('$genre, ');
+      }
+    }
+
+    return genresString.toString();
+  }
 }
