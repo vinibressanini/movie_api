@@ -1,7 +1,9 @@
+import 'package:all_in_one/src/presentation/riverpod/actors/actors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../../../../env/env.dart';
 import '../../../../shared/utils/monetary_formatter.dart';
 import '../../../../shared/widgets/user_vote_average_animation.dart';
 import '../../../domain/entitites/movie_entity.dart';
@@ -28,6 +30,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
         .read(movieDetaisNotifierProvider.notifier)
         .getMovieDetails(widget.movie.id);
     ref.read(trailerNotifierProvider.notifier).getMovieTrailer(widget.movie.id);
+    ref.read(actorsNotifierProvider.notifier).getMovieCast(widget.movie.id);
   }
 
   @override
@@ -43,6 +46,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
       () => ref.watch(trailerNotifierProvider),
     );
     var details = ref.watch(movieDetaisNotifierProvider);
+    var actors = ref.watch(actorsNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
@@ -227,16 +231,37 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                       ),
                       const SizedBox(height: 15),
                       SizedBox(
-                        height: 55,
+                        height: 100,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: 2,
+                          itemCount: actors.length,
                           itemBuilder: (context, index) {
-                            return const CircleAvatar(
-                              radius: 55,
-                              child: Icon(Icons.add),
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage: NetworkImage(
+                                        '${Env.tmdbImageUrl}${actors[index].profilePath}'),
+                                  ),
+                                  Text(
+                                    actors[index].name,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                  Text(
+                                    actors[index].character,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(fontSize: 11),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         ),
@@ -265,7 +290,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                           itemCount: 2,
                           itemBuilder: (context, index) {
                             return const CircleAvatar(
-                              radius: 55,
+                              radius: 20,
                               child: Icon(Icons.add),
                             );
                           },

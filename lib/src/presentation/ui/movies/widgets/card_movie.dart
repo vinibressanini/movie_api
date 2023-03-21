@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../env/env.dart';
 import '../../../../../shared/utils/date_format..dart';
 import '../../../../../shared/widgets/user_vote_average_animation.dart';
 import '../../../../domain/entitites/movie_entity.dart';
@@ -39,8 +40,8 @@ class CardMovie extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w200/${movie.posterPath}'),
+                    image:
+                        NetworkImage('${Env.tmdbImageUrl}${movie.posterPath}'),
                   ),
                 ),
                 margin: const EdgeInsets.all(15),

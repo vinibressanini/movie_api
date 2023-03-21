@@ -8,4 +8,6 @@ abstract class Env {
   static final tmdbApiKey = _Env.tmdbApiKey;
   @EnviedField(varName: 'API_BASE_URL')
   static const tmdbBaseUrl = _Env.tmdbBaseUrl;
+  @EnviedField(varName: 'API_IMAGE_URL')
+  static const tmdbImageUrl = _Env.tmdbImageUrl;
 }
