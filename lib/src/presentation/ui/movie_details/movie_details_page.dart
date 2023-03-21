@@ -236,18 +236,24 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
-                          itemCount: actors.length,
+                          itemCount: actors.length > 10 ? 10 : actors.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
                               child: Column(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 35,
-                                    backgroundImage: NetworkImage(
-                                        '${Env.tmdbImageUrl}${actors[index].profilePath}'),
-                                  ),
+                                  actors[index].profilePath == null
+                                      ? const CircleAvatar(
+                                          radius: 35,
+                                          backgroundImage: AssetImage(
+                                              'lib/assets/images/avatar.png'),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 35,
+                                          backgroundImage: NetworkImage(
+                                              '${Env.tmdbImageUrl}${actors[index].profilePath}'),
+                                        ),
                                   Text(
                                     actors[index].name,
                                     textAlign: TextAlign.center,

@@ -10,16 +10,6 @@ class GetMovieCastUsecaseImpl implements GetMovieCastUsecase {
 
   @override
   Future<List<ActorEntity>> getMovieCast(int movieId) async {
-    var actors = await _repository.getMovieCast(movieId);
-    getOnlyActors(actors);
-    return actors;
-  }
-
-  void getOnlyActors(List<ActorEntity> actors) {
-    for (var actor in actors) {
-      if (!actor.knownForDepartment.contains("Acting")) {
-        actors.remove(actor);
-      }
-    }
+    return await _repository.getMovieCast(movieId);
   }
 }
