@@ -50,8 +50,8 @@ class MoviesPageBody extends HookConsumerWidget {
         physics: const BouncingScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.6,
-          mainAxisSpacing: 5,
+          childAspectRatio: 0.61,
+          mainAxisSpacing: 1,
         ),
         itemCount: movies.length,
         itemBuilder: (context, index) {

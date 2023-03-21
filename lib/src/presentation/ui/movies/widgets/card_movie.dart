@@ -21,73 +21,65 @@ class CardMovie extends StatelessWidget {
           builder: (context) => MovieDetailsPage(movie: movie),
         ),
       ),
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-            height: 260,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 11,
-                    spreadRadius: 6,
-                    offset: const Offset(5, 7))
-              ],
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w200/${movie.posterPath}'),
+          Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.28,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade400,
+                      blurRadius: 6,
+                      spreadRadius: 2,
+                      offset: const Offset(3, 5),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        'https://image.tmdb.org/t/p/w200/${movie.posterPath}'),
+                  ),
+                ),
+                margin: const EdgeInsets.all(15),
               ),
-            ),
-            margin: const EdgeInsets.all(15),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.5),
-                radius: 12,
-                child: Icon(
-                  Icons.more_horiz_sharp,
-                  color: Colors.black.withOpacity(0.5),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white.withOpacity(0.5),
+                    radius: 12,
+                    child: Icon(
+                      Icons.more_horiz_sharp,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, bottom: 45),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: CircleAvatar(
-                radius: 23,
-                backgroundColor: Colors.black.withOpacity(0.8),
-                child: UserVoteAverageAnimation(voteAverage: movie.voteAverage),
+              Positioned(
+                height: MediaQuery.of(context).size.height * 0.57,
+                left: 25,
+                child: CircleAvatar(
+                  radius: 23,
+                  backgroundColor: Colors.black.withOpacity(0.8),
+                  child:
+                      UserVoteAverageAnimation(voteAverage: movie.voteAverage),
+                ),
               ),
-            ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    movie.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                  Text(
-                    formatDate(movie.releaseDate),
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
+          Text(
+            movie.title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+          Text(
+            formatDate(movie.releaseDate),
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       ),

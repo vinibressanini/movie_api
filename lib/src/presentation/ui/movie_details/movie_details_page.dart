@@ -19,7 +19,7 @@ class MovieDetailsPage extends StatefulHookConsumerWidget {
 }
 
 class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
-  late final YoutubePlayerController controller;
+  YoutubePlayerController? controller;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
 
   @override
   void dispose() {
-    controller.dispose();
+    controller!.dispose();
     super.dispose();
   }
 
@@ -89,9 +89,16 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                               ),
                             ),
                             const SizedBox(height: 15),
-                            YoutubePlayer(
-                              controller: controller,
-                              width: MediaQuery.of(context).size.width * 0.9,
+                            YoutubePlayerBuilder(
+                              player: YoutubePlayer(
+                                controller: controller!,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                              ),
+                              builder: (context, player) {
+                                return Container(
+                                  child: player,
+                                );
+                              },
                             ),
                           ],
                         );
