@@ -10,9 +10,11 @@ class CardMovie extends StatelessWidget {
   const CardMovie({
     Key? key,
     required this.movie,
+    required this.isSmallDevice,
   }) : super(key: key);
 
   final MovieEntity movie;
+  final bool isSmallDevice;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,9 @@ class CardMovie extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.28,
+                height: isSmallDevice
+                    ? MediaQuery.of(context).size.height * 0.30
+                    : MediaQuery.of(context).size.height * 0.28,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -61,7 +65,9 @@ class CardMovie extends StatelessWidget {
                 ),
               ),
               Positioned(
-                height: MediaQuery.of(context).size.height * 0.57,
+                height: isSmallDevice
+                    ? MediaQuery.of(context).size.height * 0.62
+                    : MediaQuery.of(context).size.height * 0.57,
                 left: 25,
                 child: CircleAvatar(
                   radius: 23,

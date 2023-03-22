@@ -13,51 +13,58 @@ class MoviesPageBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final movies = ref.watch(moviesNotifierProvider);
-
-    return Visibility(
-      visible: movies.isNotEmpty,
-      replacement: Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade100,
-        enabled: true,
-        child: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(15),
-                    height: 260.0,
-                    color: Colors.white,
-                  ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        bool isSmallDevice = constraints.maxHeight < 700;
+        return Visibility(
+          visible: movies.isNotEmpty,
+          replacement: Shimmer.fromColors(
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.grey.shade100,
+            enabled: true,
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.all(15),
+                        height: 260.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.all(15),
+                        height: 260.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.all(15),
-                    height: 260.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-      child: GridView.builder(
-        physics: const BouncingScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.61,
-          mainAxisSpacing: 1,
-        ),
-        itemCount: movies.length,
-        itemBuilder: (context, index) {
-          return CardMovie(movie: movies[index]);
-        },
-      ),
+          child: GridView.builder(
+            physics: const BouncingScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: isSmallDevice ? 0.70 : 0.62,
+              mainAxisSpacing: 1,
+            ),
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              return CardMovie(
+                movie: movies[index],
+                isSmallDevice: isSmallDevice,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
