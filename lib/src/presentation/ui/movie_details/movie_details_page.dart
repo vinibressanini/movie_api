@@ -1,4 +1,5 @@
 import 'package:all_in_one/src/presentation/riverpod/actors/actors_provider.dart';
+import 'package:all_in_one/src/presentation/riverpod/watch_providers/watch_provider_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -31,6 +32,9 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
         .getMovieDetails(widget.movie.id);
     ref.read(trailerNotifierProvider.notifier).getMovieTrailer(widget.movie.id);
     ref.read(actorsNotifierProvider.notifier).getMovieCast(widget.movie.id);
+    ref
+        .read(watchProviderStateNotifierProvider.notifier)
+        .getWatchProviders(widget.movie.id);
   }
 
   @override
@@ -46,6 +50,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
       () => ref.watch(trailerNotifierProvider),
     );
     var details = ref.watch(movieDetaisNotifierProvider);
+    var watchProviders = ref.watch(watchProviderStateNotifierProvider);
     var actors = ref.watch(actorsNotifierProvider);
     return Scaffold(
       appBar: AppBar(
@@ -116,10 +121,13 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                   },
                 ),
                 const SizedBox(height: 15),
-                Text(
-                  '"${details.tagline}"',
-                  style: const TextStyle(fontStyle: FontStyle.italic),
-                ),
+                details.tagline.isEmpty
+                    ? const SizedBox.shrink()
+                    : Text(
+                        '"${details.tagline}"',
+                        style: const TextStyle(fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.center,
+                      ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -214,13 +222,13 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                         ],
                       ),
                       const SizedBox(height: 15),
-                      Text(widget.movie.overview),
+                      Text(details.overview),
                     ],
                   ),
                 ),
-                Padding(
+                Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -254,17 +262,28 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                                           backgroundImage: NetworkImage(
                                               '${Env.tmdbImageUrl}${actors[index].profilePath}'),
                                         ),
-                                  Text(
-                                    actors[index].name,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
+                                  const SizedBox(height: 2),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      actors[index].name,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
                                   ),
-                                  Text(
-                                    actors[index].character,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 11),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Text(
+                                      actors[index].character,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -272,39 +291,60 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                           },
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                      const SizedBox(height: 15),
                       const Text(
                         'Disponível Em:',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 15),
-                      SizedBox(
-                        height: 55,
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 2,
-                          itemBuilder: (context, index) {
-                            return const CircleAvatar(
-                              radius: 20,
-                              child: Icon(Icons.add),
-                            );
-                          },
-                        ),
-                      ),
+                      watchProviders.isEmpty
+                          ? const Text(
+                              'OPS! Parece Que Este Filme Não Está Disponível Em Nehuma Plataforma de Streaming!',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 15,
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          : SizedBox(
+                              height: 100,
+                              width: MediaQuery.of(context).size.width,
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: watchProviders.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
+                                    child: Column(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 35,
+                                          backgroundImage: NetworkImage(
+                                              '${Env.tmdbImageUrl}${watchProviders[index].logoPath}'),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            watchProviders[index].providerName,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

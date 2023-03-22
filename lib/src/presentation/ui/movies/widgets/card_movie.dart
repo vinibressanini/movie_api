@@ -78,11 +78,14 @@ class CardMovie extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            movie.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              movie.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
           Text(
             formatDate(movie.releaseDate),

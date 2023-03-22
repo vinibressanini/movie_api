@@ -9,6 +9,7 @@ class MovieDetailsDto extends MovieDetailsEntity {
     required String tagline,
     required List<String> genres,
     required int runtime,
+    required String overview,
   }) : super(
           budget: budget,
           revenue: revenue,
@@ -16,6 +17,7 @@ class MovieDetailsDto extends MovieDetailsEntity {
           tagline: tagline,
           genres: genres,
           runtime: runtime,
+          overview: overview,
         );
 
   factory MovieDetailsDto.fromMap(Map<String, dynamic> map) {
@@ -26,6 +28,7 @@ class MovieDetailsDto extends MovieDetailsEntity {
       tagline: map['tagline'] ?? '',
       genres: List<String>.from(map['genres']?.map((x) => x['name'])),
       runtime: map['runtime']?.toInt() ?? 0,
+      overview: map['overview'] ?? '',
     );
   }
 }

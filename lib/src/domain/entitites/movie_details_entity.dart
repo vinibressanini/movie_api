@@ -5,6 +5,7 @@ class MovieDetailsEntity {
   final String tagline;
   final List<String> genres;
   final int runtime;
+  final String overview;
 
   MovieDetailsEntity({
     required this.budget,
@@ -13,5 +14,6 @@ class MovieDetailsEntity {
     required this.tagline,
     required this.genres,
     required this.runtime,
+    required this.overview,
   });
 }

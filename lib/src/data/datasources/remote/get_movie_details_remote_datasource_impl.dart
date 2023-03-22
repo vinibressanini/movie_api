@@ -19,7 +19,7 @@ class GetMovieDetailsRemoteDatasourceImpl implements GetMovieDetailsDatasource {
         "${Env.tmdbBaseUrl}movie/$movieId",
         queryParameters: {
           "api_key": Env.tmdbApiKey,
-          "language": "pt_BR",
+          "language": "pt-BR",
         },
       );
       details = MovieDetailsDto.fromMap(response.data);

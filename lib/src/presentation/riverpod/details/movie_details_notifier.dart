@@ -16,6 +16,7 @@ class MovieDetailsNotifier extends StateNotifier<MovieDetailsEntity> {
           revenue: 0,
           runtime: 0,
           tagline: "",
+          overview: '',
         ));
 
   Future<void> getMovieDetails(int movieId) async {
