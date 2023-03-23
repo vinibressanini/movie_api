@@ -30,7 +30,7 @@ class CardMovie extends StatelessWidget {
             children: [
               Container(
                 height: isSmallDevice
-                    ? MediaQuery.of(context).size.height * 0.30
+                    ? MediaQuery.of(context).size.height * 0.32
                     : MediaQuery.of(context).size.height * 0.28,
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -66,7 +66,7 @@ class CardMovie extends StatelessWidget {
               ),
               Positioned(
                 height: isSmallDevice
-                    ? MediaQuery.of(context).size.height * 0.62
+                    ? MediaQuery.of(context).size.height * 0.66
                     : MediaQuery.of(context).size.height * 0.57,
                 left: 25,
                 child: CircleAvatar(
@@ -78,6 +78,7 @@ class CardMovie extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
