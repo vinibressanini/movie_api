@@ -227,15 +227,17 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Atores Principais:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          'Atores Principais:',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                        ),
                       ),
                       const SizedBox(height: 15),
                       SizedBox(
@@ -292,20 +294,25 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text(
-                        'Disponível Em:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(
+                          'Disponível Em:',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                        ),
                       ),
                       const SizedBox(height: 15),
                       watchProviders.isEmpty
-                          ? const Text(
-                              'OPS! Parece Que Este Filme Não Está Disponível Em Nehuma Plataforma de Streaming!',
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 15,
+                          ? const Center(
+                              child: Text(
+                                'OPS! Parece Que Este Filme Não Está Disponível Em Nehuma Plataforma de Streaming!',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 15,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             )
                           : SizedBox(
                               height: 100,

@@ -48,21 +48,37 @@ class MoviesPageBody extends HookConsumerWidget {
               ),
             ),
           ),
-          child: GridView.builder(
-            physics: const BouncingScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: isSmallDevice ? 0.60 : 0.62,
-              mainAxisSpacing: 1,
-            ),
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              return CardMovie(
-                movie: movies[index],
-                isSmallDevice: isSmallDevice,
-              );
-            },
-          ),
+          child: MediaQuery.of(context).orientation == Orientation.landscape
+              ? GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 0.65,
+                    mainAxisSpacing: 1,
+                  ),
+                  itemCount: movies.length,
+                  itemBuilder: (context, index) {
+                    return CardMovie(
+                      movie: movies[index],
+                      isSmallDevice: isSmallDevice,
+                    );
+                  },
+                )
+              : GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: isSmallDevice ? 0.60 : 0.62,
+                    mainAxisSpacing: 1,
+                  ),
+                  itemCount: movies.length,
+                  itemBuilder: (context, index) {
+                    return CardMovie(
+                      movie: movies[index],
+                      isSmallDevice: isSmallDevice,
+                    );
+                  },
+                ),
         );
       },
     );

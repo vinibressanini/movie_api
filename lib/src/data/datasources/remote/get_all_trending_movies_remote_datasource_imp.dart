@@ -19,7 +19,7 @@ class GetAllTrendingMoviesRemoteDatasourceImp
 
     try {
       final response = await _dio.get(
-          "${Env.tmdbBaseUrl}trending/movie/$timeWindow",
+          "trending/movie/$timeWindow",
           queryParameters: {'api_key': Env.tmdbApiKey});
 
       movies = List.from(

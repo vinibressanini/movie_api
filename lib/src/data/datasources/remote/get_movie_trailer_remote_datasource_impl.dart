@@ -17,7 +17,7 @@ class GetMovieTrailerRemoteDatasourceImpl implements GetMovieTrailerDatasource {
 
     try {
       final response = await _dio.get(
-          '${Env.tmdbBaseUrl}movie/$movieId/videos',
+          'movie/$movieId/videos',
           queryParameters: {'api_key': Env.tmdbApiKey, 'language': 'pt-BR'});
 
       videos = MovieTrailerDto.fromMap(response.data);

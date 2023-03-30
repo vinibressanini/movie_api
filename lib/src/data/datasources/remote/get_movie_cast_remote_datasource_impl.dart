@@ -16,7 +16,7 @@ class GetMovieCastRemoteDatasourceImpl implements GetMovieCastDatasource {
 
     try {
       var response = await _dio.get(
-        '${Env.tmdbBaseUrl}movie/$movieId/credits',
+        'movie/$movieId/credits',
         queryParameters: {'api_key': Env.tmdbApiKey},
       );
 

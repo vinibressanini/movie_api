@@ -17,7 +17,7 @@ class GetWatchProvidersRemoteDatasourceImpl
 
     try {
       var response = await _dio.get(
-        '${Env.tmdbBaseUrl}movie/$movieId/watch/providers',
+        'movie/$movieId/watch/providers',
         queryParameters: {'api_key': Env.tmdbApiKey},
       );
 

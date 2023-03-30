@@ -16,7 +16,7 @@ class GetMovieDetailsRemoteDatasourceImpl implements GetMovieDetailsDatasource {
     late final MovieDetailsEntity details;
     try {
       var response = await _dio.get(
-        "${Env.tmdbBaseUrl}movie/$movieId",
+        "movie/$movieId",
         queryParameters: {
           "api_key": Env.tmdbApiKey,
           "language": "pt-BR",

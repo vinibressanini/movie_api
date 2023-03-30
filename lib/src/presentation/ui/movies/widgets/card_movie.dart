@@ -18,6 +18,20 @@ class CardMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var orientation = MediaQuery.of(context).orientation;
+
+    double getCardSize() {
+      if (orientation == Orientation.portrait && isSmallDevice) {
+        return MediaQuery.of(context).size.height * 0.32;
+      } else if (orientation == Orientation.portrait && !isSmallDevice) {
+        return MediaQuery.of(context).size.height * 0.28;
+      } else {
+        return MediaQuery.of(context).size.height * 0.44;
+      }
+    }
+
+    var cardSize = getCardSize();
+
     return GestureDetector(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
@@ -29,9 +43,7 @@ class CardMovie extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: isSmallDevice
-                    ? MediaQuery.of(context).size.height * 0.32
-                    : MediaQuery.of(context).size.height * 0.28,
+                height: cardSize,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -65,9 +77,7 @@ class CardMovie extends StatelessWidget {
                 ),
               ),
               Positioned(
-                height: isSmallDevice
-                    ? MediaQuery.of(context).size.height * 0.66
-                    : MediaQuery.of(context).size.height * 0.57,
+                height: cardSize * 2.05,
                 left: 25,
                 child: CircleAvatar(
                   radius: 23,
