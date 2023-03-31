@@ -2,7 +2,7 @@
 // in all_in_one/test/remote_datasource_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, import_of_legacy_library_into_null_safe
 import 'dart:async' as _i4;
 
 import 'package:dio/dio.dart' as _i2;
