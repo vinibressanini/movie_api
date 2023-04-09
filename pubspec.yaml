@@ -42,7 +42,6 @@ dependencies:
   shimmer: ^2.0.0
   youtube_player_flutter: ^8.1.2
   envied: ^0.3.0
-  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +53,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  change_app_package_name: ^1.1.0
   envied_generator: ^0.3.0
   build_runner: ^2.3.3
   mockito: ^5.3.2

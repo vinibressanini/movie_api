@@ -65,6 +65,7 @@ class MoviesPageBody extends HookConsumerWidget {
                   },
                 )
               : GridView.builder(
+                
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

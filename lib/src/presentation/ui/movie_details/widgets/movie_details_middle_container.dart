@@ -88,9 +88,14 @@ class MovieDetailsMiddleContainer extends StatelessWidget {
                 'Gêneros: ',
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
-              Text(
-                movieGenres,
-                style: const TextStyle(fontSize: 15),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.70,
+                child: Text(
+                  movieGenres,
+                  style: const TextStyle(fontSize: 15),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
             ],
           ),

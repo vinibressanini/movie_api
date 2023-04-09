@@ -5,7 +5,6 @@ import '../../../../../shared/utils/date_format..dart';
 import '../../../../../shared/widgets/user_vote_average_animation.dart';
 import '../../../../domain/entitites/movie_entity.dart';
 import '../../movie_details/movie_details_page.dart';
-import '../../movie_details/widgets/movie_details_page_body.dart';
 
 class CardMovie extends StatelessWidget {
   const CardMovie({
