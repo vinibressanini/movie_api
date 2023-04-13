@@ -14,13 +14,16 @@ class GetAllTrendingMoviesRemoteDatasourceImp
   GetAllTrendingMoviesRemoteDatasourceImp(this._dio);
 
   @override
-  Future<List<MovieEntity>> getAllTrendingMovies(String timeWindow) async {
+  Future<List<MovieEntity>> getAllTrendingMovies(
+      String timeWindow, int page) async {
     List<MovieEntity> movies = [];
 
     try {
-      final response = await _dio.get(
-          "trending/movie/$timeWindow",
-          queryParameters: {'api_key': Env.tmdbApiKey});
+      final response =
+          await _dio.get("trending/movie/$timeWindow", queryParameters: {
+        'api_key': Env.tmdbApiKey,
+        'page': page,
+      });
 
       movies = List.from(
           response.data['results'].map((movie) => MovieDto.fromMap(movie)));

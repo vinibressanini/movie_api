@@ -5,13 +5,39 @@ import 'package:shimmer/shimmer.dart';
 import '../../../riverpod/movies/movies_provider.dart';
 import 'card_movie.dart';
 
-class MoviesPageBody extends HookConsumerWidget {
+class MoviesPageBody extends StatefulHookConsumerWidget {
   const MoviesPageBody({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MoviesPageBody> createState() => _MoviesPageBodyState();
+}
+
+class _MoviesPageBodyState extends ConsumerState<MoviesPageBody> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(infiniteScrolling);
+    super.initState();
+  }
+
+  infiniteScrolling() {
+    if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+      ref.watch(moviesNotifierProvider.notifier).getAllTrendingMovies('day');
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final movies = ref.watch(moviesNotifierProvider);
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -50,6 +76,7 @@ class MoviesPageBody extends HookConsumerWidget {
           ),
           child: MediaQuery.of(context).orientation == Orientation.landscape
               ? GridView.builder(
+                  controller: _controller,
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
@@ -65,7 +92,7 @@ class MoviesPageBody extends HookConsumerWidget {
                   },
                 )
               : GridView.builder(
-                
+                  controller: _controller,
                   physics: const BouncingScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

@@ -8,7 +8,7 @@ class GetAllTrendingMoviesRepositoryImp
  GetAllTrendingMoviesRepositoryImp(this._datasouce);
 
   @override
-  Future<List<MovieEntity>> getAllTrendingMovies(String timeWindow) async{
-    return await _datasouce.getAllTrendingMovies(timeWindow);
+  Future<List<MovieEntity>> getAllTrendingMovies(String timeWindow, int page) async{
+    return await _datasouce.getAllTrendingMovies(timeWindow, page);
   }
 }

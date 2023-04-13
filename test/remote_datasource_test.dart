@@ -25,7 +25,7 @@ void main() {
             data: jsonDecode(jsonData),
             requestOptions: RequestOptions(path: '/')));
 
-    final list = await datasource.getAllTrendingMovies('day');
+    final list = await datasource.getAllTrendingMovies('day',1);
 
     expect(list, isNotEmpty);
     expect(list.first.title, 'John Wick: Chapter 4');

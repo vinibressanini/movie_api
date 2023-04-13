@@ -9,8 +9,8 @@ class GetAllTrendingMoviesUsecaseImp implements GetAllTrendingMoviesUsecase {
   GetAllTrendingMoviesUsecaseImp(this._repository);
   
   @override
-  Future<List<MovieEntity>> getAllTrendingMovies(String timeWindow) async {
-    return await _repository.getAllTrendingMovies(timeWindow);
+  Future<List<MovieEntity>> getAllTrendingMovies(String timeWindow, int page) async {
+    return await _repository.getAllTrendingMovies(timeWindow,page);
   }
 
 }
