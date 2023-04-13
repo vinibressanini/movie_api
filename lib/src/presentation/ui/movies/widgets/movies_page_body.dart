@@ -16,6 +16,7 @@ class MoviesPageBody extends StatefulHookConsumerWidget {
 
 class _MoviesPageBodyState extends ConsumerState<MoviesPageBody> {
   late ScrollController _controller;
+  final isLoading = ValueNotifier(false);
 
   @override
   void initState() {
@@ -26,7 +27,9 @@ class _MoviesPageBodyState extends ConsumerState<MoviesPageBody> {
 
   infiniteScrolling() {
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+      isLoading.value = true;
       ref.watch(moviesNotifierProvider.notifier).getAllTrendingMovies('day');
+      isLoading.value = false;
     }
   }
 
@@ -75,39 +78,70 @@ class _MoviesPageBodyState extends ConsumerState<MoviesPageBody> {
             ),
           ),
           child: MediaQuery.of(context).orientation == Orientation.landscape
-              ? GridView.builder(
-                  controller: _controller,
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    childAspectRatio: 0.65,
-                    mainAxisSpacing: 1,
+              ? Stack(children: [
+                  GridView.builder(
+                    controller: _controller,
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 0.65,
+                      mainAxisSpacing: 1,
+                    ),
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      return CardMovie(
+                        movie: movies[index],
+                        isSmallDevice: isSmallDevice,
+                      );
+                    },
                   ),
-                  itemCount: movies.length,
-                  itemBuilder: (context, index) {
-                    return CardMovie(
-                      movie: movies[index],
-                      isSmallDevice: isSmallDevice,
-                    );
-                  },
-                )
-              : GridView.builder(
-                  controller: _controller,
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: isSmallDevice ? 0.60 : 0.62,
-                    mainAxisSpacing: 1,
+                  loading()
+                ])
+              : Stack(children: [
+                  GridView.builder(
+                    controller: _controller,
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: isSmallDevice ? 0.60 : 0.62,
+                      mainAxisSpacing: 1,
+                    ),
+                    itemCount: movies.length,
+                    itemBuilder: (context, index) {
+                      return CardMovie(
+                        movie: movies[index],
+                        isSmallDevice: isSmallDevice,
+                      );
+                    },
                   ),
-                  itemCount: movies.length,
-                  itemBuilder: (context, index) {
-                    return CardMovie(
-                      movie: movies[index],
-                      isSmallDevice: isSmallDevice,
-                    );
-                  },
-                ),
+                  loading()
+                ]),
         );
+      },
+    );
+  }
+
+  loading() {
+    return ValueListenableBuilder(
+      valueListenable: isLoading,
+      builder: (context, bool isLoading, _) {
+        return (isLoading)
+            ? Positioned(
+                left: (MediaQuery.of(context).size.width / 2) - 20,
+                bottom: 20,
+                child: CircleAvatar(
+                  backgroundColor: Colors.black.withOpacity(0.2),
+                  radius: 20,
+                  child: const Padding(
+                    padding: EdgeInsets.all(5),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink();
       },
     );
   }

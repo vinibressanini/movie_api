@@ -73,7 +73,7 @@ class MovieDetailsMiddleContainer extends StatelessWidget {
             children: [
               const Text(
                 'Data de Lançamento: ',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
               ),
               Text(
                 details.releaseDate,
@@ -86,7 +86,7 @@ class MovieDetailsMiddleContainer extends StatelessWidget {
             children: [
               const Text(
                 'Gêneros: ',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.70,
@@ -100,7 +100,11 @@ class MovieDetailsMiddleContainer extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 15),
-          Text(details.overview),
+          Text(
+            details.overview,
+            textAlign: TextAlign.justify,
+            style: const TextStyle(fontSize: 15),
+          ),
         ],
       ),
     );

@@ -17,34 +17,36 @@ class MovieDetailsPageBody extends StatefulHookConsumerWidget {
   const MovieDetailsPageBody({Key? key, required this.movie}) : super(key: key);
 
   @override
-  ConsumerState<MovieDetailsPageBody> createState() => _MovieDetailsPageBodyState();
+  ConsumerState<MovieDetailsPageBody> createState() =>
+      _MovieDetailsPageBodyState();
 }
 
 class _MovieDetailsPageBodyState extends ConsumerState<MovieDetailsPageBody> {
   @override
   void initState() {
     super.initState();
-    ref
+    startProvider();
+  }
+
+  startProvider() async {
+    await ref
         .read(movieDetaisNotifierProvider.notifier)
         .getMovieDetails(widget.movie.id);
-    ref.read(trailerNotifierProvider.notifier).getMovieTrailer(widget.movie.id);
-    ref.read(actorsNotifierProvider.notifier).getMovieCast(widget.movie.id);
-    ref
+    await ref
+        .read(trailerNotifierProvider.notifier)
+        .getMovieTrailer(widget.movie.id);
+    await ref
+        .read(actorsNotifierProvider.notifier)
+        .getMovieCast(widget.movie.id);
+    await ref
         .read(watchProviderStateNotifierProvider.notifier)
         .getWatchProviders(widget.movie.id);
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var movie = Future.delayed(
-      const Duration(seconds: 3),
-      () => ref.watch(trailerNotifierProvider),
-    );
+    var movie = Future.delayed(const Duration(seconds: 1))
+        .then((value) => ref.watch(trailerNotifierProvider));
     var details = ref.watch(movieDetaisNotifierProvider);
     var watchProviders = ref.watch(watchProviderStateNotifierProvider);
     var actors = ref.watch(actorsNotifierProvider);
@@ -68,7 +70,8 @@ class _MovieDetailsPageBodyState extends ConsumerState<MovieDetailsPageBody> {
                     ? const SizedBox.shrink()
                     : Text(
                         '"${details.tagline}"',
-                        style: const TextStyle(fontStyle: FontStyle.italic),
+                        style: const TextStyle(
+                            fontStyle: FontStyle.italic, fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
                 const SizedBox(

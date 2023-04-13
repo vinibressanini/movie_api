@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../env/env.dart';
 import '../../../../../shared/utils/date_format..dart';
-import '../../../../../shared/widgets/user_vote_average_animation.dart';
 import '../../../../domain/entitites/movie_entity.dart';
 import '../../movie_details/movie_details_page.dart';
 
@@ -61,30 +60,6 @@ class CardMovie extends StatelessWidget {
                   ),
                 ),
                 margin: const EdgeInsets.all(15),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.5),
-                    radius: 12,
-                    child: Icon(
-                      Icons.more_horiz_sharp,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                height: cardSize * 2.05,
-                left: 25,
-                child: CircleAvatar(
-                  radius: 23,
-                  backgroundColor: Colors.black.withOpacity(0.8),
-                  child:
-                      UserVoteAverageAnimation(voteAverage: movie.voteAverage),
-                ),
               ),
             ],
           ),
