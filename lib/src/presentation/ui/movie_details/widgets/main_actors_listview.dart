@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../env/env.dart';
@@ -33,8 +34,11 @@ class MainActorsListView extends StatelessWidget {
                       )
                     : CircleAvatar(
                         radius: 35,
-                        backgroundImage: NetworkImage(
-                            '${Env.tmdbImageUrl}${actors[index].profilePath}'),
+                        backgroundImage: CachedNetworkImageProvider(
+                          '${Env.tmdbImageUrl}/h632${actors[index].profilePath}',
+                          maxHeight: 192,
+                          maxWidth: 192,
+                        ),
                       ),
                 const SizedBox(height: 2),
                 SizedBox(

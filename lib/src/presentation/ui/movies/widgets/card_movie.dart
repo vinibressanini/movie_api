@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../env/env.dart';
@@ -44,20 +45,24 @@ class CardMovie extends StatelessWidget {
               Container(
                 height: cardSize,
                 decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: CachedNetworkImageProvider(
+                      '${Env.tmdbImageUrl}/w342${movie.posterPath}',
+                      maxHeight:
+                          orientation == Orientation.portrait ? 600 : 475,
+                      maxWidth: orientation == Orientation.portrait ? 400 : 320,
+                    ),
+                  ),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade400,
                       blurRadius: 6,
-                      spreadRadius: 2,
-                      offset: const Offset(3, 5),
+                      spreadRadius: 1,
+                      offset: const Offset(7, 9),
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image:
-                        NetworkImage('${Env.tmdbImageUrl}${movie.posterPath}'),
-                  ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 margin: const EdgeInsets.all(15),
               ),

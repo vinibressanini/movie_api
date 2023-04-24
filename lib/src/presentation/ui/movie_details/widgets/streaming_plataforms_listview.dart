@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../env/env.dart';
@@ -27,8 +28,11 @@ class StreamingPlataformsListView extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 35,
-                  backgroundImage: NetworkImage(
-                      '${Env.tmdbImageUrl}${watchProviders[index].logoPath}'),
+                  backgroundImage: CachedNetworkImageProvider(
+                    '${Env.tmdbImageUrl}/w300${watchProviders[index].logoPath}',
+                    maxHeight: 192,
+                    maxWidth: 192,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 SizedBox(

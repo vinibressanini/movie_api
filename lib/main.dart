@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugInvertOversizedImages = true;
     return const MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
