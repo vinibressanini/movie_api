@@ -11,9 +11,19 @@ class MoviesNotifier extends StateNotifier<List<MovieEntity>> {
     getAllTrendingMovies('day');
   }
 
-  Future<void> getAllTrendingMovies(String timeWindow) async {
+  Future<void> getAllTrendingMoviesPageable(String timeWindow) async {
+
     var moviesList = await _usecase.getAllTrendingMovies(timeWindow, _page);
     state = [...state, ...moviesList];
+    _page++;
+  }
+
+  Future<void> getAllTrendingMovies(String timeWindow) async {
+    _page = 1;
+    var moviesList = await _usecase.getAllTrendingMovies(timeWindow, _page);
+    state = [];
+    await Future.delayed(const Duration(seconds: 1));
+    state = [...moviesList];
     _page++;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:all_in_one/src/presentation/riverpod/movies/movies_provider.dart';
+import 'package:all_in_one/src/presentation/riverpod/movies/time_window_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,20 +22,22 @@ class MoviesDrawer extends HookConsumerWidget {
             ),
           ),
           ListTile(
-            title: const Text('Trazer filmes semanais'),
+            title: const Text('Filmes em Alta Hoje!'),
             onTap: () {
+              ref.read(timeWindowProvider.notifier).state = "day";
               ref
                   .read(moviesNotifierProvider.notifier)
-                  .getAllTrendingMovies('day');
+                  .getAllTrendingMovies("day");
               Navigator.of(context).pop();
             },
           ),
           ListTile(
-            title: const Text('Trazer filmes diários'),
+            title: const Text('Filmes em Alta Nesta Semana!'),
             onTap: () {
+              ref.read(timeWindowProvider.notifier).state = "week";
               ref
                   .read(moviesNotifierProvider.notifier)
-                  .getAllTrendingMovies('week');
+                  .getAllTrendingMovies("week");
               Navigator.of(context).pop();
             },
           ),

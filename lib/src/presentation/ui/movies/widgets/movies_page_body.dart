@@ -1,3 +1,4 @@
+import 'package:all_in_one/src/presentation/riverpod/movies/time_window_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,10 +26,14 @@ class _MoviesPageBodyState extends ConsumerState<MoviesPageBody> {
     super.initState();
   }
 
-  infiniteScrolling() {
+  infiniteScrolling() async {
+    var timeWindow = ref.watch(timeWindowProvider);
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
       isLoading.value = true;
-      ref.watch(moviesNotifierProvider.notifier).getAllTrendingMovies('day');
+      ref
+          .watch(moviesNotifierProvider.notifier)
+          .getAllTrendingMoviesPageable(timeWindow);
+      await Future.delayed(const Duration(seconds: 1));
       isLoading.value = false;
     }
   }

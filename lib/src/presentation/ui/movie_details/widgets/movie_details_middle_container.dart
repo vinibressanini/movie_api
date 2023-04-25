@@ -35,7 +35,10 @@ class MovieDetailsMiddleContainer extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      UserVoteAverageAnimation(voteAverage: voteAverage),
+                      UserVoteAverageAnimation(
+                        voteAverage: voteAverage,
+                        animate: true,
+                      ),
                       const SizedBox(width: 10),
                       const Text(
                         '''Avaliação \ndos\n Usuários''',

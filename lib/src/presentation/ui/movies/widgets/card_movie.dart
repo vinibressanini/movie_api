@@ -1,3 +1,4 @@
+import 'package:all_in_one/shared/widgets/user_vote_average_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -65,6 +66,18 @@ class CardMovie extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 margin: const EdgeInsets.all(15),
+              ),
+              Positioned(
+                height: cardSize * 2.05,
+                left: 25,
+                child: CircleAvatar(
+                  radius: 23,
+                  backgroundColor: Colors.black.withOpacity(0.8),
+                  child: UserVoteAverageAnimation(
+                    voteAverage: movie.voteAverage,
+                    animate: false,
+                  ),
+                ),
               ),
             ],
           ),
