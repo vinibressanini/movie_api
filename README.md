@@ -8,7 +8,11 @@ O App consome a API do TMDB (https://www.themoviedb.org/?language=pt-BR) e retor
 
 
 
-https://user-images.githubusercontent.com/91560062/230794866-da0218ed-caaa-4f0c-94a4-b58f965e1846.mp4
+
+
+https://github.com/vinibressanini/movie_api/assets/91560062/5ef8b301-64d5-425f-96e0-79d747b4fbd3
+
+
 
 
 ## Como Utilizar?
